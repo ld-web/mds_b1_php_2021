@@ -63,3 +63,57 @@ const MA_CONSTANTE = 4;
 
 - Une constante n'est pas préfixée par `$`, comme les variables
 - On écrira le nom d'une constante en majuscules
+
+## Tableaux
+
+Un tableau est une suite de valeurs accolées sous forme de **collection**. C'est une structure de données très courante dans les langages de programmation.
+
+```php
+<?php
+// Déclaration d'un tableau
+$monTableau = [1, 2, 3];
+```
+
+Pour accéder à un élément du tableau, on peut utiliser la syntaxe suivante, en utilisant un **index** ou encore une **clé**, pour accéder à la **valeur** correspondante :
+
+> Attention, les index non spécifiés sont gérés automatiquement, à partir de `0`.
+
+```php
+echo $monTableau[0]; // selon la définition du tableau ci-dessus, on va afficher "1"
+```
+
+On peut également définir nos propres clés. Dans ce cas, on déclare un tableau **associatif** :
+
+```php
+// clé : 'email', valeur : 'test@test.com'
+$user = ['email' => 'test@test.com'];
+
+echo $user['email']; // affichera 'test@test.com'
+```
+
+Plusieurs structures de contrôle permettent d'effectuer des actions sur les tableaux (affichage, manipulation).
+
+Généralement, on va utiliser des **boucles** pour afficher chaque élément d'un tableau.
+
+> Voir le fichier `array.php` :
+>
+> - `for`
+> - `while`
+> - `foreach`
+> - `do...while`
+
+## Comparaison et égalité, différence
+
+Quand on veut vérifier qu'une valeur est égale à une autre en PHP, on va utiliser l'opérateur de comparaison `==`.
+
+On peut également tester l'égalité de manière plus **stricte**, en comparant **à la fois la valeur et le type** des variables. Dans ce cas, on va utiliser `===`.
+
+```php
+$a = "3"; // type string
+$b = 3; // type int
+
+$a == $b; // Vrai => comparaison sur les valeurs
+$a === $b; // Faux => comparaison sur les valeurs ET le type, les types sont différents
+```
+
+L'opérateur "différent de" en PHP est `!=`. De la même façon, on pourra comparer de manière stricte 2 variables en utilisant `!==`.
