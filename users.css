@@ -1,0 +1,55 @@
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+}
+
+#users {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.user-card {
+  margin: 1em;
+  padding: 0.7em;
+  box-shadow: 0px 1px 11px 4px #ccc;
+}
+
+.login {
+  text-transform: uppercase;
+}
+
+.email {
+  font-size: small;
+}
+
+.account {
+  display: flex;
+  align-items: center;
+}
+
+.account .activated {
+  width: 10px;
+  height: 10px;
+  background-color: #00e600;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+.account .lblActivated {
+  font-size: small;
+  color: #00e600;
+}
+
+.account .disabled {
+  width: 10px;
+  height: 10px;
+  background-color: #f00;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+.account .lblDisabled {
+  font-size: small;
+  color: #f00;
+}
