@@ -8,12 +8,12 @@ $users = [
   [
     'login' => 'Dustin Lowe',
     'email' => 'keb@vo.sm',
-    'account_activated' => false
+    'account_activated' => true
   ],
   [
     'login' => 'John Ryan',
     'email' => 'sepec@doaweweh.bs',
-    'account_activated' => true
+    'account_activated' => false
   ]
 ];
 ?>
@@ -34,54 +34,25 @@ $users = [
   <h1>Utilisateurs</h1>
 
   <div id="users">
-    <div class="user-card">
-      <p class="login">
-        Mon Login
-      </p>
-      <p class="email">
-        Mon e-mail
-      </p>
-      <div class="account">
-        <div class="activated"></div>
-        <div class="lblActivated">Compte activé</div>
+    <?php foreach ($users as $user) { ?>
+      <div class="user-card">
+        <p class="login">
+          <?php echo $user['login']; ?>
+        </p>
+        <p class="email">
+          <?php echo $user['email']; ?>
+        </p>
+        <div class="account">
+          <?php if ($user['account_activated']) { ?>
+            <div class="activated"></div>
+            <div class="lblActivated">Compte activé</div>
+          <?php } else { ?>
+            <div class="disabled"></div>
+            <div class="lblDisabled">Compte désactivé</div>
+          <?php } ?>
+        </div>
       </div>
-    </div>
-    <div class="user-card">
-      <p class="login">
-        Mon Login
-      </p>
-      <p class="email">
-        Mon e-mail
-      </p>
-      <div class="account">
-        <div class="disabled"></div>
-        <div class="lblDisabled">Compte désactivé</div>
-      </div>
-    </div>
-    <div class="user-card">
-      <p class="login">
-        Mon Login
-      </p>
-      <p class="email">
-        Mon e-mail
-      </p>
-    </div>
-    <div class="user-card">
-      <p class="login">
-        Mon Login
-      </p>
-      <p class="email">
-        Mon e-mail
-      </p>
-    </div>
-    <div class="user-card">
-      <p class="login">
-        Mon Login
-      </p>
-      <p class="email">
-        Mon e-mail
-      </p>
-    </div>
+    <?php } ?>
   </div>
 </body>
 
