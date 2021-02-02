@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#content {
+  max-width: 1000px;
+  margin: auto;
+}
+
+#products-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.product-item .promo {
+  font-size: small;
+  text-transform: uppercase;
+  background-color: #00af00;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 12px;
+}
