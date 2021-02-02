@@ -32,6 +32,4 @@ $centresInteret = ["VTT", "Badminton", "Tennis", "Jeu vidéo", "Airsoft", "Modé
       </li>
     <?php } ?>
   </ul>
-</body>
-
-</html>
+  <?php require 'layout/footer.php'; ?>
