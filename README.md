@@ -117,3 +117,76 @@ $a === $b; // Faux => comparaison sur les valeurs ET le type, les types sont dif
 ```
 
 L'opérateur "différent de" en PHP est `!=`. De la même façon, on pourra comparer de manière stricte 2 variables en utilisant `!==`.
+
+## L'inclusion de fichiers
+
+En PHP, il est possible d'inclure un fichier dans un autre, à l'aide de plusieurs méthodes de la SPL.
+
+Les deux plus couramment utilisées sont [`require`](https://www.php.net/manual/fr/function.require.php) et [`require_once`](https://www.php.net/manual/fr/function.require-once.php).
+
+> ### Lorsqu'on inclut un fichier PHP B dans un autre fichier PHP A, alors on importe tous les symboles (constantes, variables, fonctions...) définis dans B dans le fichier A. Par ailleurs, B peut consommer n'importe quel symbole préalablement défini dans A
+
+On va donc pouvoir séparer les différentes parties de notre script PHP en plusieurs fichiers, afin de découper plus proprement notre application, par exemple :
+
+- Définition des données
+- Définition des constantes
+- Affichage d'un élément (notre `product_item.php`)
+- etc...
+
+## Fonctions
+
+Une fonction est une suite d'instructions nommée, qu'on peut appeler partout où on en a besoin.
+
+```php
+<?php
+function maFonction(string $param1, string $param2 = 'defaultValue'): string
+{
+  // Instructions à exécuter
+}
+```
+
+La ligne de définition d'une fonction contient le mot-clé `function`, le nom de la fonction, ses éventuels paramètres, et son type de retour. Il s'agit de la **signature** de la fonction.
+
+### Paramètres, valeurs par défaut
+
+Les paramètres d'une fonction définissent les valeurs qui seront passées en entrée par le code appelant la fonction.
+
+Il est possible de définir des paramètres **facultatifs**, en spécifiant une valeur par défaut.
+
+```php
+<?php
+// Définition de la fonction
+function direBonjour(string $nom = "Sam") // signature de la fonction
+{
+  echo "BONJOUR $nom !!!";
+}
+```
+
+Je peux ainsi appeler la fonction avec ou sans paramètre :
+
+```php
+direBonjour("Bob"); // avec un paramètre
+direBonjour(); // sans paramètre : valeur par défaut = "Sam"
+```
+
+### Valeur de retour
+
+Une fonction peut **retourner une valeur** au code appelant, avec l'instruction `return`.
+
+> L'instruction `return`, quand elle est utilisée, **provoque la sortie** de la fonction
+
+```php
+<?php
+function paragraphMajuscules(string $val): string
+{
+  $output = "<p>" . strtoupper($val) . "</p>";
+  return $output;
+}
+```
+
+Dans ce cas, on peut récupérer la valeur retournée dans le code appelant :
+
+```php
+// on récupère et on met dans la variable $paragraph la valeur retournée depuis la fonction paragraphMajuscules
+$paragraph = paragraphMajuscules("Hello world");
+```
