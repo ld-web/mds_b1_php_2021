@@ -7,7 +7,10 @@ $products = [
     'promo' => true,
     'categories' => [
       'High-Tech',
-      'Smartphone'
+      'Smartphone',
+      'Super tech',
+      'Moderne',
+      'Blabla'
     ]
   ],
   [
