@@ -190,3 +190,38 @@ Dans ce cas, on peut récupérer la valeur retournée dans le code appelant :
 // on récupère et on met dans la variable $paragraph la valeur retournée depuis la fonction paragraphMajuscules
 $paragraph = paragraphMajuscules("Hello world");
 ```
+
+## Variables superglobales, paramètres GET
+
+PHP nous permet de réaliser des sites **dynamiques**, c'est-à-dire que, par exemple, si on souhaite visiter la page d'un produit, on peut changer l'URL pour afficher le produit voulu.
+
+La page affichée contiendra donc des informations différentes suivant le contexte de la requête. C'est cela qu'on entend ici par **dynamique**.
+
+### Variables superglobales
+
+Les variables superglobales sont des variables réservées à PHP et gérées par lui-même. Elles s'écrivent sous la forme `$_NOM`.
+
+Les variables superglobales sont des tableaux (arrays). Chaque variable superglobale a un rôle particulier dans la prise de charge de la requête par PHP.
+
+### $\_GET
+
+Le tableau `$_GET` va contenir les paramètres d'URL.
+
+Si je pars de l'URL suivante : `http://mondomaine.com/product.php`, alors je peux ajouter des paramètres à cette URL.
+
+Pour ce faire, à la suite de l'URL, je vais ajouter un point d'interrogation `?`, suivi du nom de mon premier paramètre, le signe `=`, et la valeur du paramètre : `http://mondomaine.com/product.php?monParametre=maValeur`.
+
+Du côté de PHP, quand il reçoit une requête avec une telle URL, il va prendre en charge les paramètres en **mappant** les paramètres d'URL dans le tableau `$_GET`.
+
+> Encore une fois, c'est le rôle du tableau `$_GET`, et ceci est prévu dans le fonctionnement de PHP. Nous verrons petit à petit le rôle des différents tableaux superglobaux
+
+Si je souhaite passer plusieurs paramètres dans mon URL, je peux les séparer par un caractère `&` : `http://mondomaine.com/product.php?monParametre=maValeur&monAutreParametre=monAutreValeur`.
+
+Ce qu'il faut donc retenir :
+
+- Le tableau `$_GET` contient les paramètres d'URL
+- Dans l'URL, chaque paramètre est présenté de la manière suivante : `nom=valeur`
+- Pour inscrire le premier paramètre dans l'URL, il faut le précéder du caractère `?`
+- Pour séparer différents paramètres d'URL, on va utiliser le caractère `&`
+
+> Dans le tableau `$_GET`, les paramètres sont représentés sous forme de tableau associatif : index = nom du paramètre, valeur = valeur du paramètre

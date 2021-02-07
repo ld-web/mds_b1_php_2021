@@ -1,6 +1,5 @@
 <?php
 require_once 'data/products.php';
-require_once 'product_functions.php';
 require_once 'layout_products/header.php';
 ?>
 

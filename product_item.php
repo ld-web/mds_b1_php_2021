@@ -1,3 +1,5 @@
+<?php require_once 'product_functions.php'; ?>
+
 <div class="product-item">
   <div class="image">
     <img src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>" />
@@ -19,5 +21,8 @@
   </div>
   <p>
     <?php echo getPriceTtc($product['price']); ?> €
+  </p>
+  <p>
+    <a href="product.php?id=<?php echo $product['id']; ?>">Voir le produit</a>
   </p>
 </div>
