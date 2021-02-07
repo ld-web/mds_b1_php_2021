@@ -1,6 +1,7 @@
 <?php
 $products = [
   [
+    'id' => 1,
     'name' => 'Téléphone',
     'image' => 'https://source.unsplash.com/280x170',
     'price' => 455.4,
@@ -14,6 +15,7 @@ $products = [
     ]
   ],
   [
+    'id' => 2,
     'name' => 'Télévision',
     'image' => 'https://source.unsplash.com/280x170',
     'price' => 258.6,
@@ -24,6 +26,7 @@ $products = [
     ]
   ],
   [
+    'id' => 3,
     'name' => 'Tablette',
     'image' => 'https://source.unsplash.com/280x170',
     'price' => 352.4,
@@ -34,6 +37,7 @@ $products = [
     ]
   ],
   [
+    'id' => 4,
     'name' => 'Câble HDMI',
     'image' => 'https://source.unsplash.com/280x170',
     'price' => 9.9,
@@ -44,6 +48,7 @@ $products = [
     ]
   ],
   [
+    'id' => 5,
     'name' => 'Clavier sans fil',
     'image' => 'https://source.unsplash.com/280x170',
     'price' => 15.5,
@@ -54,6 +59,7 @@ $products = [
     ]
   ],
   [
+    'id' => 6,
     'name' => 'Bureau',
     'image' => 'https://source.unsplash.com/280x170',
     'price' => 510,
@@ -63,6 +69,7 @@ $products = [
     ]
   ],
   [
+    'id' => 7,
     'name' => 'Tapis de bain',
     'image' => 'https://source.unsplash.com/280x170',
     'price' => 25.5,
