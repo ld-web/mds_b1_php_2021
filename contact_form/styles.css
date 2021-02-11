@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#content {
+  max-width: 600px;
+  margin: auto;
+}
+
+label {
+  display: block;
+}
+
+label.inline {
+  display: inline-block;
+}
+
+input,
+textarea {
+  outline: none;
+}
+
+input[type="text"],
+input[type="email"] {
+  padding: 0.3em;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.form-group {
+  margin-top: 1em;
+}
+
+.error {
+  background-color: red;
+  color: #FFF;
+  padding: 0.2em 0.5em;
+}
