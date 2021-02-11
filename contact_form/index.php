@@ -6,6 +6,7 @@ if (isFormSubmitted()) {
   // Analyse des données du formulaire
   if (requiredFieldsArePresent() && dataIsValid()) {
     header('Location: thankyou.php');
+    die();
   } else {
     $error = true;
   }
