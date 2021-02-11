@@ -225,3 +225,142 @@ Ce qu'il faut donc retenir :
 - Pour séparer différents paramètres d'URL, on va utiliser le caractère `&`
 
 > Dans le tableau `$_GET`, les paramètres sont représentés sous forme de tableau associatif : index = nom du paramètre, valeur = valeur du paramètre
+
+### $\_POST
+
+Le tableau `$_POST` contient les variables passées dans le corps de la requête.
+
+> L'utilisation la plus répandue de ce tableau va être avec les formulaires
+
+Ce qu'il est important de retenir, c'est que le tableau `$_POST`, tout comme `$_GET`, est nommé à partir de la méthode HTTP du même nom.
+
+Par défaut, quand on affiche une page web, on utilise la méthode `GET`.
+
+Mais, dans le cas d'un formulaire par exemple, on peut également utiliser la méthode `POST`.
+
+Le fonctionnement est le même que pour la méthode `GET` : les variables passées dans le corps de la requête seront mappées dans le tableau sous forme nom/valeur => clé/valeur.
+
+Voir ci-dessous le chapitre sur les formulaires.
+
+## Formulaires
+
+Les formulaires, en PHP, vont nous permettre de déclencher des traitements à partir de valeurs saisies par l'utilisateur.
+
+Pour ça, on va réceptionner les valeurs dans le tableau `$_GET` ou `$_POST`.
+
+### Méthode
+
+Pour déterminer la méthode HTTP à utiliser, on utilisera l'attribut `method` de la balise `form` :
+
+```html
+<form method="POST">...</form>
+```
+
+### Cible
+
+On peut également préciser la cible du formulaire : la page qui va réceptionner et traiter les informations saisies. On utilise pour ça l'attribut `action` :
+
+```html
+<form action="traitement.php" method="POST">...</form>
+```
+
+A la validation du formulaire, le serveur reçoit les données sur la page cible.
+
+Si on utilise la méthode `GET`, alors les valeurs saisies sont reportées dans l'URL, sour forme de variable d'URL.
+
+> Cela peut être utile dans le cas d'un moteur de recherche par exemple, si on souhaite partager l'URL à quelqu'un. Cette URL embarque alors l'ensemble des paramètres que l'on avait saisis dans le formulaire, on peut donc "reproduire" la même recherche directement à partir de l'URL
+
+Si on utilise la méthode `POST`, alors les variables sont passées dans le cors de la requête.
+
+> La méthode `POST` doit être impérativement utilisée pour un formulaire de login par exemple. Les données saisies ne seront pas exposées dans l'URL, mais seront intégrées dans le cors de la requête. Si on utilise HTTPS, ce corps sera donc chiffré et les données qui s'y trouvent également
+
+Dans le fichier cible, on peut récupérer les valeurs du formulaire dans le tableau `$_POST` ou `$_GET`, selon la méthode choisie dans le formulaire :
+
+```php
+$email = $_POST['email'];
+```
+
+### Champs du formulaire
+
+Dans un formulaire HTML, on encadre l'ensemble des champs par la balise `form`.
+
+Pour qu'on soit capable de retrouver tous les champs de notre formulaire dans la cible qui va les traiter, il est **obligatoire** que chaque champ ait un attribut `name` :
+
+```html
+<form action="traitement.php" method="POST">
+  <input type="text" name="prenom" />
+</form>
+```
+
+Dans `traitement.php`, je pourrai récupérer le prénom saisi :
+
+```php
+$prenom = $_POST['prenom'];
+```
+
+> Attention, si vous oubliez l'attribut `name`, alors le champ ne sera pas récupéré par PHP et vous ne pourrez pas récupérer la valeur saisie !
+
+### Validation
+
+Dans la cible du formulaire, il est nécessaire de valider les données envoyées.
+
+Il est possible d'assurer une validation côté client (navigateur) avec du HTML et l'attribut `required` par exemple.
+
+Cependant, étant donné que l'on ne peut prévoir l'origine d'une requête et son contenu, il est **nécessaire** de prévoir une validation côté serveur, en PHP ici.
+
+#### Présence d'un champ
+
+En premier lieu, il faut s'assurer, si un champ est requis, qu'il est présent dans le tableau superglobal concerné par notre formulaire.
+
+La méthode `empty` peut nous servir à nous assurer de la présence d'un champ dans le tableau, et que sa valeur a bien été renseignée.
+
+```php
+if (
+  empty($_POST['name']) ||
+  empty($_POST['firstname']) ||
+  empty($_POST['email']) ||
+  empty($_POST['gpdr']) ||
+  empty($_POST['subject']) ||
+  empty($_POST['message'])
+) {
+  echo "Vous n'avez pas renseigné toutes les données requises ou bien les données sont incorrectes";
+  exit; // exit permet d'arrêter l'exécution du script
+}
+```
+
+#### Format d'un champ
+
+Au-delà de sa présence, on peut vouloir un certain format pour la valeur d'un champ du formulaire. Par exemple pour un email.
+
+Dans ce cas, il faut également s'assurer, dans la cible, du bon format attendu :
+
+```php
+/**
+ * Checks if a value has a valid email format
+ *
+ * @param string $value
+ * @return boolean
+ */
+function isValidEmail(string $value): bool
+{
+  return (filter_var($value, FILTER_VALIDATE_EMAIL) !== false);
+}
+```
+
+Ainsi, on peut ajouter cette étape de validation dans notre cible :
+
+```php
+if (
+  empty($_POST['name']) ||
+  empty($_POST['firstname']) ||
+  empty($_POST['email']) || !isValidEmail($_POST['email']) ||
+  empty($_POST['gpdr']) ||
+  empty($_POST['subject']) ||
+  empty($_POST['message'])
+) {
+  echo "Vous n'avez pas renseigné toutes les données requises ou bien les données sont incorrectes";
+  exit;
+}
+```
+
+> Ne pas hésiter, quand c'est possible, à factoriser ces vérifications dans des fonctions pour éviter d'écrire trop de code et "polluer" les fichiers
