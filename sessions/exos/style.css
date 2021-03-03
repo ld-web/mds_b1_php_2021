@@ -1,0 +1,13 @@
+body.clair {
+  color: #000;
+  background-color: #fff;
+}
+
+body.sombre {
+  color: #fff;
+  background-color: #000;
+}
+
+body.sombre a {
+  color: #fff;
+}
