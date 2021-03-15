@@ -402,3 +402,102 @@ var_dump($_SESSION);
 ```
 
 > Note importante : si vous appelez `session_start()` plusieurs fois, une erreur sera générée par PHP. Veillez à l'appeler une et une seule fois au début de l'exécution de votre script. Vous pouvez également vous documenter pour trouver un moyen de vérifier si une session a déjà été démarrée, et la démarrer si ce n'est pas le cas
+
+## Bases de données - PDO
+
+Nous avons, pour le moment, impliqué 2 acteurs dans le fonctionnement de notre application : un client (le navigateur) et un serveur (notre application PHP).
+
+Si nous souhaitons réaliser une application retenant des données, et donnant la possibilité à ces données d'évoluer avec le temps, alors nous devons inclure un troisième acteur : un serveur de bases de données.
+
+> Le serveur de bases de données représente la couche permettant de **persister** vos données, ou les sauvegarder, les retenir, si vous préférez
+
+Ainsi, depuis notre application PHP, nous allons communiquer avec une base de données à l'aide d'un objet de type `PDO`.
+
+> Retrouvez la documentation de la classe `PDO` sur la [documentation PHP](https://www.php.net/manual/fr/book.pdo.php)
+
+### Accès
+
+Dans un premier temps, il faut définir les propriétés d'accès à la base de données. Pour ça, on va devoir fournir à notre application certaines informations :
+
+- Un hôte (l'endroit où se trouve le serveur de bases de données), éventuellement suivi d'un port
+- Un nom de base de données (le "catalogue" contenant nos données, dans des tables)
+- Un utilisateur
+- Un mot de passe
+- Un jeu de caractères
+
+#### DSN
+
+Le constructeur de la classe `PDO` attend, en premier paramètre, un **DSN** (Data Source Name).
+
+Nous allons le définir de la façon suivante :
+
+```php
+/*
+mysql:  => le pilote à utiliser pour la connexion
+dbname  => le nomde la base de données
+host    => l'hôte auquel il faut se connecter
+charset => le jeu de caractères à utiliser
+*/
+$dsn = 'mysql:dbname=sciences_u_users;host=127.0.0.1;charset=utf8mb4';
+```
+
+#### Connexion
+
+Ensuite, en second et troisième paramètres, un utilisateur et un mot de passe, et nous pouvons instancier un nouvel objet de type `PDO` :
+
+```php
+$dsn = 'mysql:dbname=sciences_u_users;host=127.0.0.1;charset=utf8mb4';
+$user = 'mon_user';
+$password = 'mon_mot_de_passe';
+
+$pdo = new PDO($dsn, $user, $password);
+```
+
+### Requêtes
+
+Une fois que notre objet `PDO` est instancié, nous allons pouvoir l'utiliser pour émettre des requêtes SQL vers notre serveurs de bases de données.
+
+La manière la plus rapide d'exécuter une requête est d'utiliser la méthode `query` :
+
+```php
+$query = "SELECT * FROM users";
+$stmt = $pdo->query($query);
+```
+
+Cette méthode nous renvoie une instace d'objet `PDOStatement`.
+
+Par la suite, nous allons donc devoir parcourir les enregistrements de ce statement. Commençons par récupérer le premier :
+
+```php
+// row = ligne (contenant les données d'un enregistrement)
+// fetch signifie "lire"/"récupérer"
+$row = $stmt->fetch();
+var_dump($row);
+```
+
+Si nous voulions récupérer tous les enregistrements, un par un donc, avec la méthode `fetch`, nous devrions utiliser une boucle :
+
+```php
+// Le while s'arrêtera automatiquement après la dernière ligne des résultats, puisque la méthode fetch renverra false
+while ($row = $stmt->fetch()) {
+  var_dump($row);
+}
+```
+
+Enfin, si nous voulions récupérer tous les enregistrements directement dans une variable, nous pourrions également utiliser la méthode `fetchAll` :
+
+```php
+$results = $stmt->fetchAll();
+```
+
+#### Mode de lecture
+
+Par défaut, `fetch` ou `fetchAll` nous renvoient un tableau mélangeant des index numériques et des clés portant le nom des colonnes du résultat.
+
+Si on veut récupérer seulement un tableau associatif, on peut l'indiquer à PDO :
+
+```php
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+```
+
+On pourra ainsi exploiter chaque résultat (ou ligne renvoyée par le serveur SQL) en accédant à ses colonnes via leur nom, comme un tableau associatif (`$ligne['nom']` par exemple).
